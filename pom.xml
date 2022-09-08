@@ -6,6 +6,7 @@
 	<modules>
 		<module>autopark-dto</module>
 		<module>autopark-server</module>
+		<module>autopark-client</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

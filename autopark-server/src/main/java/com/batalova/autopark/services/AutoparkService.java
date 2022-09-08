@@ -51,16 +51,16 @@ public class AutoparkService {
         }
     }
 
-    public List<AutoDto> deleteAuto(int autoId) {
-        return autoparkDao.deleteAuto((autoId));
+    public void deleteAuto(int autoId) {
+        autoparkDao.deleteAuto((autoId));
     }
 
     public void deletePersonnel(int personnelId) {
         autoparkDao.deletePersonnel(personnelId);
     }
 
-    public List<RouteDto> deleteRoute(int routeId) {
-        return autoparkDao.deleteRoute(routeId);
+    public void deleteRoute(int routeId) {
+        autoparkDao.deleteRoute(routeId);
     }
 
     public List<JournalDto> deleteJournal(int journalId) {
@@ -224,5 +224,21 @@ public class AutoparkService {
 
     public List<RouteDto> showAllRoute() {
         return autoparkDao.showAllRoute();
+    }
+
+    public List<JournalDto> findUnfinishedRouteByRouteName(String routeName){
+        return autoparkDao.findUnfinishedRouteByRouteName(routeName);
+    }
+
+    public List<JournalDto> findFinishedRouteByAuto(String autoNumber) {
+        return autoparkDao.findFinishedRouteByAuto(autoNumber);
+    }
+
+    public List<JournalDto> findFinishedRouteByRouteName(String routeName){
+        return autoparkDao.findFinishedRouteByRouteName(routeName);
+    }
+
+    public List<JournalDto> findUnfinishedRouteByFullName(String firstName, String lastName, String fatherName) {
+        return autoparkDao.findUnfinishedRouteByFullName(firstName, lastName, fatherName);
     }
 }

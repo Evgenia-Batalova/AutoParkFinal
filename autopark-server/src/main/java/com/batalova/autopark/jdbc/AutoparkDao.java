@@ -17,11 +17,11 @@ public interface AutoparkDao {
 
     int addRoute(RouteDto routeDto);
 
-    List<AutoDto> deleteAuto(int autoId);
+    void deleteAuto(int autoId);
 
     void deletePersonnel(int personnelId);
 
-    List<RouteDto> deleteRoute(int routeId);
+    void deleteRoute(int routeId);
 
     List<JournalDto> deleteJournal(int journalId);
 
@@ -65,4 +65,13 @@ public interface AutoparkDao {
     List<PersonnelDto> showAllPersonnel();
 
     List<RouteDto> showAllRoute();
+
+    List<JournalDto> findFinishedRouteByAuto(String autoNumber);
+
+    List<JournalDto> findUnfinishedRouteByRouteName(String routeName);
+
+    List<JournalDto> findFinishedRouteByRouteName(String routeName);
+
+    List<JournalDto> findUnfinishedRouteByFullName(String firstName, String lastName, String fatherName);
 }
+

@@ -76,9 +76,9 @@ public class AutoparkController {
     )
     {
 
-        List<RouteDto> removedRoutes = autoparkService.deleteRoute(id);
+        autoparkService.deleteRoute(id);
 
-        return new ResponseEntity<>(removedRoutes, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete-personnel/{id}")
@@ -97,9 +97,9 @@ public class AutoparkController {
     )
     {
 
-        List<AutoDto> removedAuto = autoparkService.deleteAuto(id);
+        autoparkService.deleteAuto(id);
 
-        return new ResponseEntity<>(removedAuto, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/find-auto-by-color")
@@ -255,7 +255,8 @@ public class AutoparkController {
             String new_number
     )
     {
-        return new ResponseEntity<>(autoparkService.updateAutoNumber(old_number, new_number), HttpStatus.OK);
+        autoparkService.updateAutoNumber(old_number, new_number);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/find-personnel-by-full-name")
@@ -285,7 +286,8 @@ public class AutoparkController {
             String new_first_name
     )
     {
-        return new ResponseEntity<>(autoparkService.updatePersonnelFirstName(old_first_name, old_last_name, old_father_name, new_first_name), HttpStatus.OK);
+        autoparkService.updatePersonnelFirstName(old_first_name, old_last_name, old_father_name, new_first_name);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/update-personnel-last-name")
@@ -300,7 +302,8 @@ public class AutoparkController {
             String new_last_name
     )
     {
-        return new ResponseEntity<>(autoparkService.updatePersonnelLastName(old_first_name, old_last_name, old_father_name, new_last_name), HttpStatus.OK);
+        autoparkService.updatePersonnelLastName(old_first_name, old_last_name, old_father_name, new_last_name);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/update-personnel-father-name")
@@ -315,7 +318,8 @@ public class AutoparkController {
             String new_father_name
     )
     {
-        return new ResponseEntity<>(autoparkService.updatePersonnelFatherName(old_first_name, old_last_name, old_father_name, new_father_name), HttpStatus.OK);
+        autoparkService.updatePersonnelFatherName(old_first_name, old_last_name, old_father_name, new_father_name);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/show-all-auto")
@@ -340,6 +344,54 @@ public class AutoparkController {
         List<RouteDto> routeDtoList = autoparkService.showAllRoute();
 
         return new ResponseEntity<>(routeDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/find-unfinished-route-by-route-name")
+    public ResponseEntity<List<JournalDto>> findUnfinishedRouteByRouteName(
+            @RequestParam(name = "name")
+            String name
+    )
+    {
+        List<JournalDto> routeByName = autoparkService.findUnfinishedRouteByRouteName(name);
+
+        return new ResponseEntity<>(routeByName, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/find-finished-route-by-auto")
+    public ResponseEntity<List<JournalDto>> findFinishedRouteByAuto(
+            @RequestParam(name = "num")
+            String num
+    )
+    {
+        List<JournalDto> finishedRouteByAuto = autoparkService.findFinishedRouteByAuto(num);
+
+        return new ResponseEntity<>(finishedRouteByAuto, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/find-finished-route-by-route-name")
+    public ResponseEntity<List<JournalDto>> findFinishedRouteByRouteName(
+            @RequestParam(name = "name")
+            String name
+    )
+    {
+        List<JournalDto> finishedRouteByRouteName = autoparkService.findFinishedRouteByRouteName(name);
+
+        return new ResponseEntity<>(finishedRouteByRouteName, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/find-unfinished-route-by-full-name")
+    public ResponseEntity<List<JournalDto>> findUnfinishedRouteByFullName(
+            @RequestParam(name = "first_name")
+            String first_name,
+            @RequestParam(name = "last_name")
+            String last_name,
+            @RequestParam(name = "father_name")
+            String father_name
+    )
+    {
+        List<JournalDto> routeByFullName = autoparkService.findUnfinishedRouteByFullName(first_name, last_name, father_name);
+
+        return new ResponseEntity<>(routeByFullName, HttpStatus.OK);
     }
 
 }

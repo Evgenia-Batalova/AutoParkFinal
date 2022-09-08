@@ -132,13 +132,13 @@ public class AutoparkDaoImpl implements AutoparkDao {
     }
 
     @Override
-    public List<AutoDto> deleteAuto(int autoId) {
+    public void deleteAuto(int autoId) {
         String request = "DELETE FROM auto WHERE id = ?";
+        Object[] arguments = new Object[] {autoId};
 
-        return jdbcTemplate.query(
+        jdbcTemplate.update(
                 request,
-                DataClassRowMapper.newInstance(AutoDto.class),
-                autoId);
+                arguments);
     }
 
     @Override
@@ -153,13 +153,13 @@ public class AutoparkDaoImpl implements AutoparkDao {
     }
 
     @Override
-    public List<RouteDto> deleteRoute(int routeId) {
+    public void deleteRoute(int routeId) {
         String request = "DELETE FROM routes WHERE id = ?";
+        Object[] arguments = new Object[] {routeId};
 
-        return jdbcTemplate.query(
+        jdbcTemplate.update(
                 request,
-                DataClassRowMapper.newInstance(RouteDto.class),
-                routeId);
+                arguments);
     }
 
     @Override
@@ -388,4 +388,52 @@ public class AutoparkDaoImpl implements AutoparkDao {
                 DataClassRowMapper.newInstance(RouteDto.class));
     }
 
-}
+    @Override
+    public List<JournalDto> findUnfinishedRouteByRouteName(String routeName) {
+        String request = "SELECT j.* FROM routes AS r JOIN journal AS j ON r.id = j.route_id " +
+                "WHERE r.name = ? AND j.time_out IS NULL";
+
+        return jdbcTemplate.query(
+                request,
+                DataClassRowMapper.newInstance(JournalDto.class),
+                routeName);
+    }
+
+    @Override
+    public List<JournalDto> findFinishedRouteByRouteName(String routeName) {
+        String request = "SELECT j.* FROM routes AS r JOIN journal AS j ON r.id = j.route_id " +
+                "WHERE r.name = ? AND j.time_out IS NOT NULL";
+
+        return jdbcTemplate.query(
+                request,
+                DataClassRowMapper.newInstance(JournalDto.class),
+                routeName);
+    }
+
+    @Override
+    public List<JournalDto> findUnfinishedRouteByFullName(String firstName, String lastName, String fatherName) {
+        List<PersonnelDto> personnelList = findPersonnelByFullName(firstName, lastName, fatherName);
+        PersonnelDto personnel = personnelList.get(0);
+        Integer personnelId = personnel.getId().get();
+        String request = "SELECT j.* FROM auto_personnel AS p LEFT JOIN auto AS a ON p.id = a.personnel_id " +
+                "LEFT JOIN journal AS j ON a.id = j.auto_id " +
+                "WHERE p.id = ? AND j.time_out IS NULL";
+
+        return jdbcTemplate.query(
+                request,
+                DataClassRowMapper.newInstance(JournalDto.class),
+                personnelId);
+    }
+
+    @Override
+    public List<JournalDto> findFinishedRouteByAuto(String autoNumber) {
+        String request = "SELECT j.* FROM auto AS a JOIN journal AS j ON a.id = j.auto_id " +
+                "WHERE a.num = ? j.time_out IS NOT NULL";
+
+        return jdbcTemplate.query(
+                request,
+                DataClassRowMapper.newInstance(JournalDto.class),
+                autoNumber);
+    }
+
+    }
