@@ -30,4 +30,17 @@ public class AutoparkRestClient {
         ResponseEntity<String> response = restTemplate.postForEntity(fooResourceUrl, request, String.class);
         System.out.println(response.getBody());
     }
+
+    public void deletePersonnel(Integer personnelId) {
+        //String entityUrl = "http://localhost:8080/delete-personnel?id=" + personnelId;
+        //ResponseEntity<String> response = restTemplate.delete(entityUrl);
+        //System.out.println(response.getBody());
+    }
+
+    public void showAllPersonnel() {
+        //String fooResourceUrl = "http://localhost:8080/show-all-personnel";
+        //HttpEntity<String> request = new HttpEntity<>("");
+        //ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl, request, String.class);
+        //System.out.println(response.getBody());
+    }
 }
