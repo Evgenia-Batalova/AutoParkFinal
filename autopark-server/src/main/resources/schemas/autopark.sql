@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS auto_personnel (
+CREATE TABLE IF NOT EXISTS 3 (
     id serial PRIMARY KEY,
     first_name VARCHAR(20),
     last_name VARCHAR(20),

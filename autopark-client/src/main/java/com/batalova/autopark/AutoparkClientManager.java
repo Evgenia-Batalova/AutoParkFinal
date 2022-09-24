@@ -53,7 +53,7 @@ public class AutoparkClientManager {
                 updateOptions();
                 break;
             case "6":
-                System.out.println("пусто");
+                findOptions();
                 break;
             default:
                 System.out.println("Неизвестное действие '" + choice + "'");
@@ -186,6 +186,171 @@ public class AutoparkClientManager {
                 break;
             default:
                 System.out.println("Неизвестное действие '" + caseAutoUpdate + "'");
+        }
+    }
+
+    private void findOptions() throws IOException {
+        System.out.println("1: Поиск по параметрам пользователя");
+        System.out.println("2: Поиск по параметрам авто");
+        System.out.println("3: Поиск по параметрам рута");
+        String caseFind = reader.readLine();
+        switch (caseFind) {
+            case "1":
+                findUserOptions();
+                break;
+            case "2":
+                findAutoOptions();
+                break;
+            case "3":
+                findRouteOptions();
+                break;
+            default:
+                System.out.println("Неизвестное действие '" + caseFind + "'");
+        }
+    }
+
+    private void findUserOptions() throws IOException {
+        System.out.println("1: Поиск по имени пользователя");
+        System.out.println("2: Поиск по фамилии пользователя");
+        System.out.println("3: Поиск по отчеству пользователя");
+        System.out.println("4: Поиск по полному ФИО пользователя");
+        String caseFindUser = reader.readLine();
+        switch (caseFindUser) {
+            case "1":
+                handleFindByFirstName();
+                break;
+            case "2":
+                handleFindByLastName();
+                break;
+            case "3":
+                handleFindByFatherName();
+                break;
+            case "4":
+                handleFindByFullName();
+                break;
+            default:
+                System.out.println("Неизвестное действие '" + caseFindUser + "'");
+        }
+    }
+
+    private void findRouteOptions() throws IOException {
+        System.out.println("1: Поиск по имени рута");
+        System.out.println("2: Поиск незавершённых рутов по id авто");
+        System.out.println("3: Поиск незавершённых рутов по имени рута");
+        System.out.println("4: Поиск незавершённых рутов по полному ФИО пользователя");
+        String caseFindRoute = reader.readLine();
+        switch (caseFindRoute) {
+            case "1":
+                handleFindByRouteName();
+                break;
+            case "2":
+                handleFindUnfinishedRouteByAutoId();
+                break;
+            case "3":
+                handleFindUnfinishedRouteByRouteName();
+                break;
+            case "4":
+                handleFindUnfinishedRouteByFullName();
+                break;
+            default:
+                System.out.println("Неизвестное действие '" + caseFindRoute + "'");
+        }
+    }
+
+    private void findAutoOptions() throws IOException {
+        System.out.println("1: Поиск авто по цвету");
+        System.out.println("2: Поиск авто по номеру");
+        System.out.println("3: Поиск авто по марке");
+        String caseFindAuto = reader.readLine();
+        switch (caseFindAuto) {
+            case "1":
+                handleFindByColor();
+                break;
+            case "2":
+                handleFindByAutoNum();
+                break;
+            case "3":
+                handleFindByMark();
+                break;
+            default:
+                System.out.println("Неизвестное действие '" + caseFindAuto + "'");
+        }
+    }
+
+    private void handleFindByRouteName() {
+        boolean isRouteNameFind = false;
+        while ((!isRouteNameFind)) {
+            isRouteNameFind = findByRouteName();
+        }
+    }
+
+    private void handleFindUnfinishedRouteByAutoId() {
+        boolean isAutoIdFind = false;
+        while ((!isAutoIdFind)) {
+            isAutoIdFind = findUnfinishedRouteByAutoId();
+        }
+    }
+
+    private void handleFindUnfinishedRouteByRouteName() {
+        boolean isUnfinishedRouteByNameFind = false;
+        while ((!isUnfinishedRouteByNameFind)) {
+            isUnfinishedRouteByNameFind = findUnfinishedRouteByRouteName();
+        }
+    }
+
+    private void handleFindUnfinishedRouteByFullName() {
+        boolean isUnfinishedRouteByFullNameFind = false;
+        while ((!isUnfinishedRouteByFullNameFind)) {
+            isUnfinishedRouteByFullNameFind = findUnfinishedRouteByFullName();
+        }
+    }
+
+    private void handleFindByFirstName() {
+        boolean isFirstNameFind = false;
+        while (!isFirstNameFind) {
+            isFirstNameFind = findByFirstName();
+        }
+    }
+
+    private void handleFindByLastName() {
+        boolean isLastNameFind = false;
+        while (!isLastNameFind) {
+            isLastNameFind = findByLastName();
+        }
+    }
+
+    private void handleFindByFatherName() {
+        boolean isFatherNameFind = false;
+        while (!isFatherNameFind) {
+            isFatherNameFind = findByFatherName();
+        }
+    }
+
+    private void handleFindByFullName() {
+        boolean isFullNameFind = false;
+        while (!isFullNameFind) {
+            isFullNameFind = findByFullName();
+        }
+    }
+
+    private void handleFindByColor() {
+        boolean isColorFind = false;
+        while (!isColorFind) {
+            isColorFind = findByColor();
+        }
+    }
+
+    private void handleFindByAutoNum() {
+        boolean isAutoNumFind = false;
+        while (!isAutoNumFind) {
+            isAutoNumFind = findByAutoNum();
+        }
+    }
+
+    private void handleFindByMark() {
+        boolean isMarkFind = false;
+        while (!isMarkFind) {
+            isMarkFind = findByMark();
         }
     }
 
@@ -330,14 +495,14 @@ public class AutoparkClientManager {
         System.out.println("Введите id пользователя");
         String stringId = scanner.nextLine();
         Integer personnelId = Integer.parseInt(stringId);
-        //restClient.deletePersonnel(personnelId);
+        restClient.deletePersonnel(personnelId);
         System.out.println("Пользователь с id '" + personnelId + "' удалён");
         return true;
     }
 
     private boolean showUser() {
         System.out.println("Все пользователи: ");
-        //restClient.showAllPersonnel();
+        restClient.showAllPersonnel();
         return true;
     }
 
@@ -378,14 +543,14 @@ public class AutoparkClientManager {
         System.out.println("Введите id авто");
         String stringId = scanner.nextLine();
         Integer autoId = Integer.parseInt(stringId);
-        //restClient.deleteAuto(autoId);
+        restClient.deleteAuto(autoId);
         System.out.println("Авто с id '" + autoId + "' удалено");
         return true;
     }
 
     private boolean showAuto() {
         System.out.println("Все авто: ");
-        //restClient.showAllAuto();
+        restClient.showAllAuto();
         return true;
     }
 
@@ -403,14 +568,14 @@ public class AutoparkClientManager {
         System.out.println("Введите id рута");
         String stringId = scanner.nextLine();
         Integer routeId = Integer.parseInt(stringId);
-        //restClient.deleteRoute(routeId);
+        restClient.deleteRoute(routeId);
         System.out.println("Рут с id '" + routeId + "' удалён");
         return true;
     }
 
     private boolean showRoute() {
         System.out.println("Все руты: ");
-        //restClient.showAllRoute();
+        restClient.showAllRoute();
         return true;
     }
 
@@ -426,7 +591,7 @@ public class AutoparkClientManager {
         } else {
             System.out.println("Вы ввели рут: " + routeNameOrZero);
         }
-        //restClient.startRouteByAutoNumberAndRouteName(autoNum, routeNameOrZero);
+        restClient.startRouteByAutoNumberAndRouteName(autoNum, routeNameOrZero);
         System.out.println("Авто с номером " + autoNum + " вышло на маршрут '" + routeNameOrZero + "'");
         return true;
     }
@@ -436,7 +601,7 @@ public class AutoparkClientManager {
         System.out.println("Введите номер авто");
         String autoNum = scanner.nextLine();
         System.out.println("Вы ввели номер: " + autoNum);
-        //restClient.finishRouteByNumber(autoNum);
+        restClient.finishRouteByNumber(autoNum);
         System.out.println("Авто с номером " + autoNum + " завершило маршрут");
         return true;
     }
@@ -467,7 +632,7 @@ public class AutoparkClientManager {
         } else {
             System.out.println("Вы ввели новое имя: " + newFirstNameOrZero);
         }
-        //restClient.updatePersonnelFirstName(firstName, lastNameOrZero, fatherNameOrZero, newFirstNameOrZero);
+        restClient.updatePersonnelFirstName(firstName, lastNameOrZero, fatherNameOrZero, newFirstNameOrZero);
         System.out.println("ФИО пользователя " + firstName + " " + lastNameOrZero + " " + fatherNameOrZero +
                 " было изменено на " + newFirstNameOrZero + " " + lastNameOrZero + " " + fatherNameOrZero);
         return true;
@@ -499,7 +664,7 @@ public class AutoparkClientManager {
         } else {
             System.out.println("Вы ввели новую фамилию: " + newLastNameOrZero);
         }
-        //restClient.updatePersonnelLastName(firstName, lastNameOrZero, fatherNameOrZero, newLastNameOrZero);
+        restClient.updatePersonnelLastName(firstName, lastNameOrZero, fatherNameOrZero, newLastNameOrZero);
         System.out.println("ФИО пользователя " + firstName + " " + lastNameOrZero + " " + fatherNameOrZero +
                 " было изменено на " + firstName + " " + newLastNameOrZero + " " + fatherNameOrZero);
         return true;
@@ -531,7 +696,7 @@ public class AutoparkClientManager {
         } else {
             System.out.println("Вы ввели новое отчество: " + newFatherNameOrZero);
         }
-        //restClient.updatePersonnelFatherName(firstName, lastNameOrZero, fatherNameOrZero, newFatherNameOrZero);
+        restClient.updatePersonnelFatherName(firstName, lastNameOrZero, fatherNameOrZero, newFatherNameOrZero);
         System.out.println("ФИО пользователя " + firstName + " " + lastNameOrZero + " " + fatherNameOrZero +
                 " было изменено на " + firstName + " " + lastNameOrZero + " " + newFatherNameOrZero);
         return true;
@@ -549,7 +714,7 @@ public class AutoparkClientManager {
         } else {
             System.out.println("Вы ввели цвет: " + newAutoColorOrZero);
         }
-        //restClient.updateAutoColor(newAutoColorOrZero, autoNum);
+        restClient.updateAutoColor(newAutoColorOrZero, autoNum);
         System.out.println("Авто с номером " + autoNum + " перекрашено в " + newAutoColorOrZero + " цвет");
         return true;
     }
@@ -566,8 +731,134 @@ public class AutoparkClientManager {
         } else {
             System.out.println("Вы ввели новый номер: " + newAutoNumberOrZero);
         }
-        //restClient.updateAutoNumber(autoNum, newAutoColorOrZero);
+        restClient.updateAutoNumber(autoNum, newAutoNumberOrZero);
         System.out.println("Номер авто изменён на " + newAutoNumberOrZero);
+        return true;
+    }
+
+    private boolean findByFirstName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите имя пользователя");
+        String firstName = scanner.nextLine();
+        System.out.println("Список пользователей с именем: " + "'" + firstName + "':");
+        restClient.findPersonnelByFirstName(firstName);
+        return true;
+    }
+
+    private boolean findByLastName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите фамилию пользователя");
+        String lastName = scanner.nextLine();
+        System.out.println("Список пользователей с фамилией: " + "'" + lastName + "':");
+        restClient.findPersonnelByLastName(lastName);
+        return true;
+    }
+
+    private boolean findByFatherName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите отчество пользователя");
+        String fatherName = scanner.nextLine();
+        System.out.println("Список пользователей с отчеством: " + "'" + fatherName + "':");
+        restClient.findPersonnelByFatherName(fatherName);
+        return true;
+    }
+
+    private boolean findByFullName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите имя пользователя");
+        String firstName = scanner.nextLine();
+        System.out.println("Вы ввели имя: " + firstName);
+        System.out.println("Введите фамилию пользователя или нажмите 0");
+        String lastNameOrZero = scanner.nextLine();
+        if("0".equals(lastNameOrZero)) {
+            return false;
+        } else {
+            System.out.println("Вы ввели фамилию: " + lastNameOrZero);
+        }
+        System.out.println("Введите отчество пользователя или нажмите 0");
+        String fatherNameOrZero = scanner.nextLine();
+        if("0".equals(fatherNameOrZero)) {
+            return false;
+        } else {
+            System.out.println("Вы ввели отчество: " + fatherNameOrZero);
+        }
+        System.out.println("Данные о пользователе с данным ФИО: ");
+        restClient.findPersonnelByFullName(firstName, lastNameOrZero, fatherNameOrZero);
+        return true;
+    }
+
+    private boolean findByColor() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите цвет авто");
+        String autoColor = scanner.nextLine();
+        System.out.println("Список авто с цветом: " + "'" + autoColor + "':");
+        restClient.findAutoByColor(autoColor);
+        return true;
+    }
+
+    private boolean findByAutoNum() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите номер авто");
+        String autoNum = scanner.nextLine();
+        System.out.println("Данные о авто с номером: " + "'" + autoNum + "':");
+        restClient.findAutoByNumber(autoNum);
+        return true;
+    }
+
+    private boolean findByMark() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите марку авто");
+        String autoMark = scanner.nextLine();
+        System.out.println("Список авто с маркой: " + "'" + autoMark + "':");
+        restClient.findAutoByMark(autoMark);
+        return true;
+    }
+
+    private boolean findByRouteName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите имя рута");
+        String routeName = scanner.nextLine();
+        System.out.println("Список рутов с именем: " + "'" + routeName + "':");
+        restClient.findRouteByName(routeName);
+        return true;
+    }
+
+    private boolean findUnfinishedRouteByAutoId() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите id авто");
+        String autoId = scanner.nextLine();
+        restClient.findUnfinishedRouteByAutoId(autoId);
+        return true;
+    }
+
+    private boolean findUnfinishedRouteByRouteName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите имя рута");
+        String routeName = scanner.nextLine();
+        restClient.findUnfinishedRouteByRouteName(routeName);
+        return true;
+    }
+
+    private boolean findUnfinishedRouteByFullName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите имя пользователя");
+        String firstName = scanner.nextLine();
+        System.out.println("Вы ввели имя: " + firstName);
+        System.out.println("Введите фамилию пользователя или нажмите 0");
+        String lastNameOrZero = scanner.nextLine();
+        if("0".equals(lastNameOrZero)) {
+            return false;
+        } else {
+            System.out.println("Вы ввели фамилию: " + lastNameOrZero);
+        }
+        System.out.println("Введите отчество пользователя или нажмите 0");
+        String fatherNameOrZero = scanner.nextLine();
+        if("0".equals(fatherNameOrZero)) {
+            return false;
+        } else {
+            System.out.println("Вы ввели отчество: " + fatherNameOrZero);
+        }
+        restClient.findUnfinishedRouteByFullName(firstName, lastNameOrZero, fatherNameOrZero);
         return true;
     }
 
