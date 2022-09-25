@@ -2,6 +2,7 @@ package com.batalova.autopark;
 
 public class Service {
     public static void main(String[] args) {
-        new AutoparkClientManager(new AutoparkRestClient()).run();
+        User user = AutoparkClientManager.authenticate();
+        new AutoparkClientManager(new AutoparkRestClient(user)).run();
     }
 }

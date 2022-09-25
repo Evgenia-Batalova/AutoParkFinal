@@ -862,4 +862,10 @@ public class AutoparkClientManager {
         return true;
     }
 
+    public static User authenticate()  {
+        System.out.println("Введите логин");
+        System.out.println("Введите пароль");
+        return new User("userName", "password");
+    }
+
 }
