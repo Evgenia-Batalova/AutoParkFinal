@@ -41,16 +41,16 @@ public interface AutoparkDao {
 
     List<JournalDto> findUnfinishedRouteByAutoId(int autoId);
 
-    Boolean isRouteFinished(int routeId);
+    Boolean isRouteFinishedByJournalId(int routeId);
     int startRoute(JournalDto journalDto);
 
-    void finishRoute(int id, Instant timeOut);
+    void finishRouteByJournalId(int id, Instant timeOut);
 
     List<RouteDto> findRouteByName(String routeName);
 
     void updateAutoColor(String color, String number);
 
-    List<AutoDto> updateAutoNumber(String number, int id);
+    void updateAutoNumber(String num, int id);
 
     List<PersonnelDto> findPersonnelByFullName(String firstName, String lastName, String fatherName);
 

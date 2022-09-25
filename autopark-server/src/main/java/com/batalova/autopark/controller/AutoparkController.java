@@ -203,11 +203,11 @@ public class AutoparkController {
 
     @GetMapping(value = "/is-route-finished")
     public ResponseEntity<Boolean> isRouteFinished(
-            @RequestParam(name = "route_id")
-            int routeId
+            @RequestParam(name = "journal_id")
+            int journalId
     )
     {
-        Boolean isFinished = autoparkService.isRouteFinished(routeId);
+        Boolean isFinished = autoparkService.isRouteFinished(journalId);
 
         return new ResponseEntity<>(isFinished, HttpStatus.OK);
     }

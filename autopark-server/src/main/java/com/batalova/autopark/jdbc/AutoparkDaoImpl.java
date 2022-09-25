@@ -255,8 +255,8 @@ public class AutoparkDaoImpl implements AutoparkDao {
     }
 
     @Override
-    public Boolean isRouteFinished(int routeId) {
-        String request = "SELECT * FROM journal WHERE route_id = ? AND time_out IS NULL";
+    public Boolean isRouteFinishedByJournalId(int routeId) {
+        String request = "SELECT * FROM journal WHERE id = ? AND time_out IS NULL";
 
         return jdbcTemplate.query(
                 request,
@@ -274,12 +274,12 @@ public class AutoparkDaoImpl implements AutoparkDao {
     }
 
     @Override
-    public void finishRoute(int id, Instant timeOut) {
-        if (!isRouteFinished(id)) {
+    public void finishRouteByJournalId(int id, Instant timeOut) {
+        if (!isRouteFinishedByJournalId(id)) {
             String request = "UPDATE journal SET time_out = ? WHERE id = ?";
             jdbcTemplate.update(request, Timestamp.from(timeOut), id);
         } else {
-            throw new RuntimeException("Route with id: " + id + " is already exists!");
+            throw new RuntimeException("Route with id: " + id + " is already finished!");
         }
     }
 
@@ -303,13 +303,11 @@ public class AutoparkDaoImpl implements AutoparkDao {
     }
 
     @Override
-    public List<AutoDto> updateAutoNumber(String number, int id) {
-        String request = "UPDATE auto SET number = ? WHERE id = ?";
+    public void updateAutoNumber(String num, int id) {
+        String request = "UPDATE auto SET num = ? WHERE id = ?";
 
-        return jdbcTemplate.query(
-                request,
-                DataClassRowMapper.newInstance(AutoDto.class),
-                number,
+        jdbcTemplate.update(request,
+                num,
                 id);
     }
 

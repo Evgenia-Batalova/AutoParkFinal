@@ -32,7 +32,7 @@ public class AutoparkClientManager {
         System.out.println("1: Добавление");
         System.out.println("2: Удаление");
         System.out.println("3: Показать всё");
-        System.out.println("4: Запуск/остановка рута");
+        System.out.println("4: Запуск/остановка маршрута");
         System.out.println("5: Обновление");
         System.out.println("6: Поиск");
         String choice = reader.readLine();
@@ -64,7 +64,7 @@ public class AutoparkClientManager {
     private void addOptions() throws IOException {
         System.out.println("1: Добавить пользователя");
         System.out.println("2: Добавить авто");
-        System.out.println("3: Добавить рут");
+        System.out.println("3: Добавить маршрут");
         String caseAdd = reader.readLine();
         switch (caseAdd) {
             case "1":
@@ -84,7 +84,7 @@ public class AutoparkClientManager {
     private void deleteOptions() throws IOException {
         System.out.println("1: Удалить пользователя");
         System.out.println("2: Удалить авто");
-        System.out.println("3: Удалить рут");
+        System.out.println("3: Удалить маршрут");
         String caseDelete = reader.readLine();
         switch (caseDelete) {
             case "1":
@@ -104,7 +104,7 @@ public class AutoparkClientManager {
     private void showOptions() throws IOException {
         System.out.println("1: Показать всех пользователей");
         System.out.println("2: Показать все авто");
-        System.out.println("3: Показать все руты");
+        System.out.println("3: Показать все маршруты");
         String caseShow = reader.readLine();
         switch (caseShow) {
             case "1":
@@ -122,8 +122,8 @@ public class AutoparkClientManager {
     }
 
     private void routeOptions() throws IOException {
-        System.out.println("1: Начать рут");
-        System.out.println("2: Закончить рут");
+        System.out.println("1: Начать маршрут");
+        System.out.println("2: Закончить маршрут");
         String caseRoute = reader.readLine();
         switch (caseRoute) {
             case "1":
@@ -192,7 +192,7 @@ public class AutoparkClientManager {
     private void findOptions() throws IOException {
         System.out.println("1: Поиск по параметрам пользователя");
         System.out.println("2: Поиск по параметрам авто");
-        System.out.println("3: Поиск по параметрам рута");
+        System.out.println("3: Поиск по параметрам маршрута");
         String caseFind = reader.readLine();
         switch (caseFind) {
             case "1":
@@ -234,10 +234,10 @@ public class AutoparkClientManager {
     }
 
     private void findRouteOptions() throws IOException {
-        System.out.println("1: Поиск по имени рута");
-        System.out.println("2: Поиск незавершённых рутов по id авто");
-        System.out.println("3: Поиск незавершённых рутов по имени рута");
-        System.out.println("4: Поиск незавершённых рутов по полному ФИО пользователя");
+        System.out.println("1: Поиск по имени маршрута");
+        System.out.println("2: Поиск незавершённых маршрутов по id авто");
+        System.out.println("3: Поиск незавершённых маршрутов по имени маршрута");
+        System.out.println("4: Поиск незавершённых маршрутов по полному ФИО пользователя");
         String caseFindRoute = reader.readLine();
         switch (caseFindRoute) {
             case "1":
@@ -531,7 +531,7 @@ public class AutoparkClientManager {
         if("0".equals(autoNumOrZero)){
             return false;
         } else {
-            System.out.println("Вы ввели марку: " + autoNumOrZero);
+            System.out.println("Вы ввели номер: " + autoNumOrZero);
         }
         restClient.addAuto(personnelId, autoColorOrZero, autoMarkOrZero, autoNumOrZero);
         System.out.println("Авто с номером " + autoNumOrZero + " добавлено");
@@ -556,25 +556,25 @@ public class AutoparkClientManager {
 
     private boolean addRoute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите имя рута");
+        System.out.println("Введите имя маршрута");
         String routeName = scanner.nextLine();
         restClient.addRoute(routeName);
-        System.out.println("Рут '" + routeName + "' добавлен");
+        System.out.println("Маршрут '" + routeName + "' добавлен");
         return true;
     }
 
     private boolean deleteRoute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите id рута");
+        System.out.println("Введите id маршрута");
         String stringId = scanner.nextLine();
         Integer routeId = Integer.parseInt(stringId);
         restClient.deleteRoute(routeId);
-        System.out.println("Рут с id '" + routeId + "' удалён");
+        System.out.println("Маршрут с id '" + routeId + "' удалён");
         return true;
     }
 
     private boolean showRoute() {
-        System.out.println("Все руты: ");
+        System.out.println("Все маршруты: ");
         restClient.showAllRoute();
         return true;
     }
@@ -584,12 +584,12 @@ public class AutoparkClientManager {
         System.out.println("Введите номер авто");
         String autoNum = scanner.nextLine();
         System.out.println("Вы ввели номер: " + autoNum);
-        System.out.println("Введите имя рута или нажмите 0");
+        System.out.println("Введите имя маршрута или нажмите 0");
         String routeNameOrZero = scanner.nextLine();
         if("0".equals(routeNameOrZero)) {
             return false;
         } else {
-            System.out.println("Вы ввели рут: " + routeNameOrZero);
+            System.out.println("Вы ввели маршрут: " + routeNameOrZero);
         }
         restClient.startRouteByAutoNumberAndRouteName(autoNum, routeNameOrZero);
         System.out.println("Авто с номером " + autoNum + " вышло на маршрут '" + routeNameOrZero + "'");
@@ -816,9 +816,9 @@ public class AutoparkClientManager {
 
     private boolean findByRouteName() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите имя рута");
+        System.out.println("Введите имя маршрута");
         String routeName = scanner.nextLine();
-        System.out.println("Список рутов с именем: " + "'" + routeName + "':");
+        System.out.println("Список маршрутов с именем: " + "'" + routeName + "':");
         restClient.findRouteByName(routeName);
         return true;
     }
@@ -833,7 +833,7 @@ public class AutoparkClientManager {
 
     private boolean findUnfinishedRouteByRouteName() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите имя рута");
+        System.out.println("Введите имя маршрута");
         String routeName = scanner.nextLine();
         restClient.findUnfinishedRouteByRouteName(routeName);
         return true;

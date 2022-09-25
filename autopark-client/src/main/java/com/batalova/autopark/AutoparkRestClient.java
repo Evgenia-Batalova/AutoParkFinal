@@ -32,17 +32,17 @@ public class AutoparkRestClient {
     }
 
     public void deletePersonnel(Integer personnelId) {
-        String entityUrl = "http://localhost:8080/delete-personnel?id=" + personnelId;
+        String entityUrl = "http://localhost:8080/delete-personnel/" + personnelId;
         restTemplate.delete(entityUrl);
     }
 
     public void deleteAuto(Integer autoId) {
-        String entityUrl = "http://localhost:8080/delete-auto?id=" + autoId;
+        String entityUrl = "http://localhost:8080/delete-auto/" + autoId;
         restTemplate.delete(entityUrl);
     }
 
     public void deleteRoute(Integer routeId) {
-        String entityUrl = "http://localhost:8080/delete-route?id=" + routeId;
+        String entityUrl = "http://localhost:8080/delete-route/" + routeId;
         restTemplate.delete(entityUrl);
     }
 

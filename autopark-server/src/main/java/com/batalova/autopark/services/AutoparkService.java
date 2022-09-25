@@ -7,7 +7,6 @@ import com.batalova.autopark.dto.RouteDto;
 import com.batalova.autopark.jdbc.AutoparkDao;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -99,8 +98,8 @@ public class AutoparkService {
         return autoparkDao.findUnfinishedRouteByAutoId(autoId);
     }
 
-    public Boolean isRouteFinished(int routeId) {
-        return autoparkDao.isRouteFinished(routeId);
+    public Boolean isRouteFinished(int journalId) {
+        return autoparkDao.isRouteFinishedByJournalId(journalId);
     }
 
     public int startRoute(JournalDto journalDto) {
@@ -109,7 +108,7 @@ public class AutoparkService {
 
     private void finishRoute(int id) {
         Instant timeOut = Instant.now();
-        autoparkDao.finishRoute(id, timeOut);
+        autoparkDao.finishRouteByJournalId(id, timeOut);
     }
 
     public List<RouteDto> findRouteByName(String routeName) {
@@ -137,7 +136,7 @@ public class AutoparkService {
     public ResponseEntity<Void> finishRouteByAutoNumber(String autoNum) {
         List<AutoDto> autoDtoList = autoparkDao.findAutoByNumber(autoNum);
         int autoId;
-        int routeId;
+        Optional<Integer> routeId;
         if (autoDtoList.size() >= 1) {
             autoId = autoDtoList.get(0).getId().get();
         } else {
@@ -145,8 +144,8 @@ public class AutoparkService {
         }
         List<JournalDto> journalDtoList = autoparkDao.findUnfinishedRouteByAutoId(autoId);
         if (journalDtoList.size() >= 1) {
-            routeId = journalDtoList.get(0).getRouteId();
-            finishRoute(routeId);
+            routeId = journalDtoList.get(0).getId();
+            finishRoute(routeId.get());
         } else {
             throw new RuntimeException("There are no active routes for auto with number " + autoNum);
         }
@@ -157,11 +156,11 @@ public class AutoparkService {
         autoparkDao.updateAutoColor(color, num);
     }
 
-    public List<AutoDto> updateAutoNumber(String oldNumber, String newNumber){
+    public void updateAutoNumber(String oldNumber, String newNumber){
         List<AutoDto> oldAutoDto = findAutoByNumber(oldNumber);
         if (oldAutoDto.size() >= 1) {
             Integer id = oldAutoDto.get(0).getId().get();
-            return autoparkDao.updateAutoNumber(newNumber, id);
+            autoparkDao.updateAutoNumber(newNumber, id);
         } else {
             throw new RuntimeException("There is no auto with this number " + oldNumber);
         }

@@ -15,9 +15,9 @@ public class JournalDto {
 
     private final Optional<Instant> time_out;
 
-    public JournalDto(Optional<Integer> id, Integer autoId, Integer route_id, Instant time_in, Optional<Instant> time_out) {
+    public JournalDto(Optional<Integer> id, Integer auto_id, Integer route_id, Instant time_in, Optional<Instant> time_out) {
         this.id = id;
-        this.auto_id = autoId;
+        this.auto_id = auto_id;
         this.route_id = route_id;
         this.time_in = time_in;
         this.time_out = time_out;
