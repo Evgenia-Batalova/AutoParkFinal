@@ -171,12 +171,12 @@ public class AutoparkService {
         return autoparkDao.findPersonnelByFullName(firstName,lastName, fatherName);
     }
 
-    public List<PersonnelDto> updatePersonnelFirstName(String oldFirstName, String oldLastName, String oldFatherName, String newFirstName) {
+    public void updatePersonnelFirstName(String oldFirstName, String oldLastName, String oldFatherName, String newFirstName) {
         List<PersonnelDto> oldFullName = findPersonnelByFullName(oldFirstName, oldLastName, oldFatherName);
         List<PersonnelDto> newFullName = findPersonnelByFullName(newFirstName, oldLastName, oldFatherName);
         if (oldFullName.size() >= 1) {
             if (newFullName.size() < 1) {
-                return autoparkDao.updatePersonnelFirstName(newFirstName, oldLastName, oldFatherName);
+                autoparkDao.updatePersonnelFirstName(oldFullName.get(0).getId().get(), newFirstName);
             } else {
                 throw new RuntimeException("Personnel with name " + newFirstName + oldLastName + oldFatherName + " is already exists");
             }
@@ -185,12 +185,12 @@ public class AutoparkService {
         }
     }
 
-    public List<PersonnelDto> updatePersonnelLastName(String oldFirstName, String oldLastName, String oldFatherName, String newLastName) {
+    public void updatePersonnelLastName(String oldFirstName, String oldLastName, String oldFatherName, String newLastName) {
         List<PersonnelDto> oldFullName = findPersonnelByFullName(oldFirstName, oldLastName, oldFatherName);
         List<PersonnelDto> newFullName = findPersonnelByFullName(oldFirstName, newLastName, oldFatherName);
         if (oldFullName.size() >= 1) {
             if (newFullName.size() < 1) {
-                return autoparkDao.updatePersonnelLastName(newLastName, oldFirstName, oldFatherName);
+                autoparkDao.updatePersonnelLastName(oldFullName.get(0).getId().get(), newLastName);
             } else {
                 throw new RuntimeException("Personnel with name " + oldFirstName + newLastName + oldFatherName + " is already exists");
             }
@@ -199,12 +199,12 @@ public class AutoparkService {
         }
     }
 
-    public List<PersonnelDto> updatePersonnelFatherName(String oldFirstName, String oldLastName, String oldFatherName, String newFatherName) {
+    public void updatePersonnelFatherName(String oldFirstName, String oldLastName, String oldFatherName, String newFatherName) {
         List<PersonnelDto> oldFullName = findPersonnelByFullName(oldFirstName, oldLastName, oldFatherName);
         List<PersonnelDto> newFullName = findPersonnelByFullName(oldFirstName, oldLastName, newFatherName);
         if (oldFullName.size() >= 1) {
             if (newFullName.size() < 1) {
-                return autoparkDao.updatePersonnelFatherName(newFatherName, oldFirstName, oldLastName);
+                autoparkDao.updatePersonnelFatherName(oldFullName.get(0).getId().get(), newFatherName);
             } else {
                 throw new RuntimeException("Personnel with name " + oldFirstName + oldLastName + newFatherName + " is already exists");
             }

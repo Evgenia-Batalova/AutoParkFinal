@@ -67,6 +67,8 @@ public class AutoparkClientManager {
         System.out.println("3: Добавить маршрут");
         String caseAdd = reader.readLine();
         switch (caseAdd) {
+            case "0":
+                break;
             case "1":
                 handleUserAddition();
                 break;
@@ -87,6 +89,8 @@ public class AutoparkClientManager {
         System.out.println("3: Удалить маршрут");
         String caseDelete = reader.readLine();
         switch (caseDelete) {
+            case "0":
+                break;
             case "1":
                 handleUserDeletion();
                 break;
@@ -107,6 +111,8 @@ public class AutoparkClientManager {
         System.out.println("3: Показать все маршруты");
         String caseShow = reader.readLine();
         switch (caseShow) {
+            case "0":
+                break;
             case "1":
                 handleUserShow();
                 break;
@@ -126,6 +132,8 @@ public class AutoparkClientManager {
         System.out.println("2: Закончить маршрут");
         String caseRoute = reader.readLine();
         switch (caseRoute) {
+            case "0":
+                break;
             case "1":
                 handleRouteStart();
                 break;
@@ -142,6 +150,8 @@ public class AutoparkClientManager {
         System.out.println("2: Обновить параметры авто");
         String caseUpdate = reader.readLine();
         switch (caseUpdate) {
+            case "0":
+                break;
             case "1":
                 updateUserOptions();
                 break;
@@ -159,6 +169,8 @@ public class AutoparkClientManager {
         System.out.println("3: Обновить отчество пользователя");
         String caseUserUpdate = reader.readLine();
         switch (caseUserUpdate) {
+            case "0":
+                break;
             case "1":
                 handleFirstNameUpdate();
                 break;
@@ -178,6 +190,8 @@ public class AutoparkClientManager {
         System.out.println("2: Обновить номер авто");
         String caseAutoUpdate = reader.readLine();
         switch (caseAutoUpdate) {
+            case "0":
+                break;
             case "1":
                 handleAutoColorUpdate();
                 break;
@@ -195,6 +209,8 @@ public class AutoparkClientManager {
         System.out.println("3: Поиск по параметрам маршрута");
         String caseFind = reader.readLine();
         switch (caseFind) {
+            case "0":
+                break;
             case "1":
                 findUserOptions();
                 break;
@@ -216,6 +232,8 @@ public class AutoparkClientManager {
         System.out.println("4: Поиск по полному ФИО пользователя");
         String caseFindUser = reader.readLine();
         switch (caseFindUser) {
+            case "0":
+                break;
             case "1":
                 handleFindByFirstName();
                 break;
@@ -240,6 +258,8 @@ public class AutoparkClientManager {
         System.out.println("4: Поиск незавершённых маршрутов по полному ФИО пользователя");
         String caseFindRoute = reader.readLine();
         switch (caseFindRoute) {
+            case "0":
+                break;
             case "1":
                 handleFindByRouteName();
                 break;
@@ -263,6 +283,8 @@ public class AutoparkClientManager {
         System.out.println("3: Поиск авто по марке");
         String caseFindAuto = reader.readLine();
         switch (caseFindAuto) {
+            case "0":
+                break;
             case "1":
                 handleFindByColor();
                 break;
@@ -863,9 +885,12 @@ public class AutoparkClientManager {
     }
 
     public static User authenticate()  {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Введите логин");
+        String userName = scanner.nextLine();
         System.out.println("Введите пароль");
-        return new User("userName", "password");
+        String password = scanner.nextLine();
+        return new User(userName, password);
     }
 
 }

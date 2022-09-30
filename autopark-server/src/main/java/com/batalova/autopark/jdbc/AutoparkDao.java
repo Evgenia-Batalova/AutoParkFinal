@@ -54,11 +54,11 @@ public interface AutoparkDao {
 
     List<PersonnelDto> findPersonnelByFullName(String firstName, String lastName, String fatherName);
 
-    List<PersonnelDto> updatePersonnelFirstName(String firstName, String lastName, String fatherName);
+    void updatePersonnelFirstName(int id, String firstName);
 
-    List<PersonnelDto> updatePersonnelLastName(String lastName, String firstName, String fatherName);
+    void updatePersonnelLastName(int id, String lastName);
 
-    List<PersonnelDto> updatePersonnelFatherName(String fatherName, String firstName, String lastName);
+    void updatePersonnelFatherName(int id, String fatherName);
 
     List<AutoDto> showAllAuto();
 

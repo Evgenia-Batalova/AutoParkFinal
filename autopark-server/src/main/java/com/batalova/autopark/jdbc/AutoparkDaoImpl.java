@@ -324,39 +324,33 @@ public class AutoparkDaoImpl implements AutoparkDao {
     }
 
     @Override
-    public List<PersonnelDto> updatePersonnelFirstName(String firstName, String lastName, String fatherName) {
-        String request = "UPDATE auto_personnel SET first_name = ? WHERE last_name = ? AND father_name =?";
+    public void updatePersonnelFirstName(int id, String firstName) {
+        String request = "UPDATE auto_personnel SET first_name = ? WHERE id = ?";
 
-        return jdbcTemplate.query(
+        jdbcTemplate.update(
                 request,
-                DataClassRowMapper.newInstance(PersonnelDto.class),
                 firstName,
-                lastName,
-                fatherName);
+                id);
     }
 
     @Override
-    public List<PersonnelDto> updatePersonnelLastName(String lastName, String firstName, String fatherName) {
-        String request = "UPDATE auto_personnel SET last_name = ? WHERE first_name = ? AND father_name =?";
+    public void updatePersonnelLastName(int id, String lastName) {
+        String request = "UPDATE auto_personnel SET last_name = ? WHERE id = ?";
 
-        return jdbcTemplate.query(
+        jdbcTemplate.update(
                 request,
-                DataClassRowMapper.newInstance(PersonnelDto.class),
                 lastName,
-                firstName,
-                fatherName);
+                id);
     }
 
     @Override
-    public List<PersonnelDto> updatePersonnelFatherName(String firstName, String lastName, String fatherName) {
-        String request = "UPDATE auto_personnel SET father_name = ? WHERE first_name = ? AND last_name = ?";
+    public void updatePersonnelFatherName(int id, String fatherName) {
+        String request = "UPDATE auto_personnel SET father_name = ? WHERE id = ?";
 
-        return jdbcTemplate.query(
+        jdbcTemplate.update(
                 request,
-                DataClassRowMapper.newInstance(PersonnelDto.class),
                 fatherName,
-                firstName,
-                lastName);
+                id);
     }
 
     @Override
